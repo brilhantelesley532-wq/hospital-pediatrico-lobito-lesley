@@ -1,0 +1,204 @@
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #f4f7fb;
+}
+
+header {
+  background-image: url('img/hospitax.jpg');
+  background-size: cover;
+  background-position: center;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  position: relative;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  background: #023e8a;
+}
+
+nav button {
+  background: none;
+  border: none;
+  color: white;
+  padding: 15px;
+  cursor: pointer;
+}
+
+nav button:hover {
+  background: #0077b6;
+}
+
+section {
+  display: none;
+  padding: 20px;
+}
+
+.active {
+  display: block;
+}
+
+.card {
+  background: white;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.login-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('img/login.jpg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.login-box {
+  padding: 30px;
+  border-radius: 12px;
+  width: 320px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  position: relative;
+}
+
+.login-box h2 {
+  text-align: center;
+  color: white;
+  margin-top: 0;
+}
+
+.input-group {
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: white;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 12px;
+  top: 38px;
+  cursor: pointer;
+  color: #666;
+}
+
+.links-login {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.links-login a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background: #0077b6;
+  color: black;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #005f92;
+}
+
+.painel {
+  display: none;
+}
+
+.seta-voltar {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.msg-sucesso {
+  color: lightgreen;
+  text-align: center;
+  margin-top: 10px;
+  display: none;
+}
+
+#conteudo-principal {
+  display: none;
+}
+
+.imagem-centralizada {
+  text-align: center;
+  margin: 15px 0;
+}
+
+.imagem-centralizada img {
+  max-width: 90%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.video-centralizado {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.video-centralizado video {
+  max-width: 90%;
+  height: auto;
+}
+
+.audio-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.botao-sair {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: red !important;
+  color: white !important;
+  font-weight: bold;
+  padding: 5px 7px !important;
+  width: auto !important;
+  border-radius: 4px;
+  box-shadow: 1px 2px rgba(0,0,0,0.1);
+}
+
+.botao-sair:hover {
+  background: darkred !important;
+}

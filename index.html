@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Hospital Pediátrico do Lobito</title>
+    <!-- Chamada do Estilo -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- TELA DE LOGIN -->
+<div class="login-container" id="telaLogin">
+  <div class="login-box" id="painelLogin">
+    <h2> 🏥<br> Hospital <br> Pediátrico do Lobito</h2>
+
+    <form id="loginForm">
+      <div class="input-group">
+        <label>Número ou Email</label>
+        <input type="text" id="usuario" placeholder="Digite aqui">
+      </div>
+
+      <div class="input-group">
+        <label>Password</label>
+        <input type="password" id="senha" placeholder="Digite sua senha">
+        <span class="eye-icon" id="olho" onclick="mostrarSenha()">👁️</span>
+      </div>
+
+      <div class="links-login">
+        <a onclick="abrirPainel('esqueceu')">Esqueceu senha</a>
+        <a onclick="abrirPainel('criar')">Criar conta</a>
+      </div>
+
+      <button type="submit">Entrar</button>
+    </form>
+  </div>
+
+    <div class="login-box painel" id="painelEsqueceu">
+      <span class="seta-voltar" onclick="abrirPainel('login')">←</span>
+      <h2>Recuperar Senha</h2>
+      <div class="input-group">
+        <label>Email</label>
+        <input type="email" id="emailRec" placeholder="seuemail@gmail.com">
+      </div>
+      <div class="input-group">
+        <label>Número</label>
+        <input type="text" id="numRec" placeholder="933000000">
+      </div>
+      <button onclick="enviarRecuperacao()">Enviar</button>
+      <div class="msg-sucesso" id="msgEnviado">Mensagem enviada com sucesso!</div>
+    </div>
+
+    <div class="login-box painel" id="painelCriar">
+      <span class="seta-voltar" onclick="abrirPainel('login')">←</span>
+      <h2>Criar Conta</h2>
+      <div class="input-group">
+        <label>Nome Completo</label>
+        <input type="text" id="nomeNovo" placeholder="Digite seu nome">
+      </div>
+      <div class="input-group">
+        <label>Gmail</label>
+        <input type="email" id="emailNovo" placeholder="exemplo@gmail.com">
+      </div>
+      <div class="input-group">
+        <label>Número de telemóvel</label>
+        <input type="text" id="numNovo" placeholder="933000000">
+      </div>
+      <div class="input-group">
+        <label>Data de nascimento</label>
+        <input type="text" id="dataNovo" placeholder="DD/MM/AAAA">
+      </div>
+      <button onclick="validarConta()">Entrar</button>
+    </div>
+</div>
+
+<div id="conteudo-principal">
+<header>
+  <h1>Hospital<br> Pediátrico do Lobito</h1>
+  <p>Cuidado e saúde infantil é a nossa prioridade</p>
+  <button class="botao-sair" onclick="sair()">sair</button>
+</header>
+
+<nav>
+  <button onclick="show('home')">Home</button>
+  <button onclick="show('areas')">Áreas</button>
+  <button onclick="show('contacto')">Contactos</button>
+  <button onclick="show('sobre')">Sobre nós</button>
+</nav>
+
+<section id="home" class="active">
+   <p align="center"> <b> Bem-vindo a nossa página </b> </p>
+  <div class="imagem-centralizada">
+    <img src="img/hospital1.jpg" alt="Hospital">
+    <br><br>
+    <img src="img/tomas.jpg" alt="Imagem">
+  </div>
+  
+      <h4> <B>Horário e Funcionamento de Consultas </B> </h4> 
+      de Segunda a sexta-feira, das 08:00 às 18:00; aos Sábados, das 08:00 às 12:00.
+    <h4> <b> Emergências Pediátricas </b> </h4>
+      Funcionamento 24 horas, 7 dias por semana. 
+   A pedriatia oferece Serviços e Especialidades. <br>
+        <h4> <b> Especialidades Médicas </b> </h4>
+     Além de pediatria geral, o hospital disponibiliza consultas de Genética Médica, cardiologia e neurologia. <br>
+        <h4> Internamento e Cirurgia </h4> 
+        As Unidades de internamento e salas de cirurgia especializadas para crianças.
+        <h4> Programas Preventivos </h4>
+        Campanhas de vacinação e educação em saúde. <br> 
+O hospital é atualmente liderado pela <b> <i> Dra. Florinda Miranda e Silva </i> </b>. <br>
+
+  <div class="video-centralizado">
+    <video controls>
+      <source src="video/hospital.mp4" type="video/mp4">
+      Seu navegador não suporta vídeo.
+    </video>
+  </div>
+
+  <h2>Sobre a campanha de doação</h2>
+<div style="max-width: 500px; margin: 30px auto; background: white; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); overflow: hidden;">
+  <h2 style="background: #023e8a; color: white; margin: 0; padding: 15px; font-size: 22px;">O que você pode doar</h2>
+  <table style="width: 100%; border-collapse: collapse;">
+    <thead>
+      <tr style="background: #f0f0f0;">
+        <th style="padding: 15px; text-align: left;">Categoria</th>
+        <th style="padding: 15px; text-align: left;">Itens</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td style="padding: 12px 15px; font-weight: bold; color: #023e8a;">Materiais Médicos</td><td>Luvas, seringas, agulhas, etc.</td></tr>
+      <tr style="background: #fafafa;"><td style="padding: 12px 15px; font-weight: bold; color: #023e8a;">Medicamentos</td><td>Antibióticos, analgésicos, etc.</td></tr>
+      <tr><td style="padding: 12px 15px; font-weight: bold; color: #023e8a;">Equipamentos</td><td>Camas, cadeiras de rodas, etc.</td></tr>
+      <tr style="background: #fafafa;"><td style="padding: 12px 15px; font-weight: bold; color: #023e8a;">Material de Higiene</td><td>Sabonetes, fraldas, etc.</td></tr>
+      <tr><td style="padding: 12px 15px; font-weight: bold; color: #023e8a;">Géneros Alimentícios</td><td>Leite em pó, arroz, etc.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<p>O hospital Regional Pediátrico do Lobito agradece a todos que participaram nesta campanha.</p>
+
+  <div class="imagem-centralizada">
+    <img src="img/campanha.jpg" alt="imagem">
+    <img src="img/campanha2.jpg" alt="imagem">
+  </div>
+</section>
+
+<section id="areas">
+  <p align="center"> <b> Tipo de consulta<br> de Rotina e Vigilância </b> </p>
+
+  <div class="card"> Consulta de saúde infantil</div>
+    <p>Acompanhamento regular do peso, altura e estado geral de saúde da criança, garantindo que ela está se desenvolvendo bem.</p>
+  <div class="card"> Vacinação </div>
+    <p>Aplicação e atualização do calendário vacinal, fundamental para proteger contra diversas doenças infecciosas, como sarampo, poliomielite e outras.</p>
+  <div class="card"> Avaliação do desenvolvimento </div>
+    <p>Verificação de marcos importantes como a fala, os movimentos, a socialização e o aprendizado, identificando cedo qualquer atraso ou dificuldade.</p>
+    <h3> Consultas de Especialidade </h3>
+    <p> Para necessidades mais específicas, o hospital conta com médicos especialistas: </p>
+    <div class="card">Neonatologia</div>
+    <p> Cuidado especial com os recém-nascidos, especialmente prematuros ou que necessitam de atenção intensiva logo após o nascimento. </p>
+  <div class="card"> Nutrição </div>
+    <p> Acompanhamento da alimentação, peso e crescimento, com orientações para evitar desnutrição ou obesidade infantil.</p>
+    <div class="card"> Cardiologia Pediátrica </div>
+    <p> Avaliação e tratamento de problemas relacionados ao coração, como sopros cardíacos ou más formações congénitas. </p>
+    <div class="card"> Neurologia Pediátrica </div>
+        <p> Atendimento de condições que afetam o cérebro e o sistema nervoso, como crises convulsivas, dores de cabeça frequentes ou atrasos no desenvolvimento neurológico. </p>
+    <div class="card"> Pneumologia </div>
+        <p> Tratamento de doenças dos pulmões e vias respiratórias, como asma, bronquite e pneumonias recorrentes. </p>
+    <div class="card"> Dermatologia </div>
+        <p>Cuidados com a pele, tratando alergias, eczemas, infecções cutâneas e outros problemas dermatológicos comuns na infância. </p>
+</section>
+
+<section id="contacto">
+  <h3>Informações de Contacto </h3>
+  Telefone: +244 932 723 796 <br>
+  Marcação: 957 672 765<br>
+  Página Oficial do Instagram: Hospital Regional<br><br>
+
+  <h3>Marcar Consulta</h3>
+  <div class="card">
+    <input type="text" placeholder="Nome completo" style="width:100%; margin:5px 0; padding:5px; height:30px; box-sizing: border-box;">
+    <input type="email" placeholder="Email" style="width:100%; margin:5px 0; padding:5px; height:30px; box-sizing: border-box;">
+    <textarea placeholder="Mensagem" style="width:100%; margin:5px 0; padding:5px; height:80px; box-sizing: border-box;"></textarea>
+    <button onclick="alert('Mensagem enviada!')">Enviar</button>
+  </div>
+</section>
+
+<section id="sobre">
+  <h3>Sobre nós</h3>
+  <div class="card">
+    <p>
+        O Hospital Pediátrico do Lobito, localizado na Rua José Anchieta, Bairro Compão, em Lobito, Benguela, dedica-se ao atendimento infantil com excelência, cuidado humanizado e uma equipa especializada. Oferece um serviço completo que vai desde o acompanhamento regular até aos casos mais complexos, garantindo sempre a saúde e o bem-estar das crianças.
+    </p>
+  </div>
+
+  <div class="audio-container">
+    <h4>Ouça sobre nosso Hospital </h4>
+    <audio controls>
+      <source src="audio/AudioHospital.mp3" type="audio/mpeg">
+      Seu navegador não suporta o elemento de áudio.
+    
+  </div>
+</section>
+
+  <footer id="rodape">
+    <p align="center"> @Dra. Florinda Miranda </p>
+  </footer>
+
+</div> <!-- FIM DO CONTEÚDO PRINCIPAL -->
+
+<!-- Chamada do ficheiro JavaScript -->
+<script src="script.js"></script>
+
+</body>
+</html>
