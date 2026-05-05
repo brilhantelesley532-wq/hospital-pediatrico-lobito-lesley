@@ -5,6 +5,11 @@
     <title>Hospital Pediátrico do Lobito</title>
     <!-- Chamada do Estilo -->
     <link rel="stylesheet" href="style.css">
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 </head>
 <body>
 
@@ -13,7 +18,7 @@
   <div class="login-box" id="painelLogin">
     <h2> 🏥<br> Hospital <br> Pediátrico do Lobito</h2>
 
-    <form id="loginForm">
+    <form id="loginForm" onsubmit="event.preventDefault(); logar();">
       <div class="input-group">
         <label>Número ou Email</label>
         <input type="text" id="usuario" placeholder="Digite aqui">
@@ -26,7 +31,7 @@
       </div>
 
       <div class="links-login">
-        <a onclick="abrirPainel('esqueceu')">Esqueceu senha</a>
+        <a onclick="recuperarSenha()">Esqueceu senha</a>
         <a onclick="abrirPainel('criar')">Criar conta</a>
       </div>
 
@@ -40,10 +45,6 @@
       <div class="input-group">
         <label>Email</label>
         <input type="email" id="emailRec" placeholder="seuemail@gmail.com">
-      </div>
-      <div class="input-group">
-        <label>Número</label>
-        <input type="text" id="numRec" placeholder="933000000">
       </div>
       <button onclick="enviarRecuperacao()">Enviar</button>
       <div class="msg-sucesso" id="msgEnviado">Mensagem enviada com sucesso!</div>
@@ -61,18 +62,14 @@
         <input type="email" id="emailNovo" placeholder="exemplo@gmail.com">
       </div>
       <div class="input-group">
-        <label>Número de telemóvel</label>
-        <input type="text" id="numNovo" placeholder="933000000">
+        <label>Palavra-passe</label>
+        <input type="password" id="senhaNovo" placeholder="Crie sua senha">
       </div>
-      <div class="input-group">
-        <label>Data de nascimento</label>
-        <input type="text" id="dataNovo" placeholder="DD/MM/AAAA">
-      </div>
-      <button onclick="validarConta()">Entrar</button>
+      <button onclick="criarConta()">Criar Conta</button>
     </div>
 </div>
 
-<div id="conteudo-principal">
+<div id="conteudo-principal" style="display:none;">
 <header>
   <h1>Hospital<br> Pediátrico do Lobito</h1>
   <p>Cuidado e saúde infantil é a nossa prioridade</p>
@@ -205,8 +202,111 @@ O hospital é atualmente liderado pela <b> <i> Dra. Florinda Miranda e Silva </i
 
 </div> <!-- FIM DO CONTEÚDO PRINCIPAL -->
 
-<!-- Chamada do ficheiro JavaScript -->
-<script src="script.js"></script>
+<script>
+    // CONFIGURAÇÃO DO FIREBASE - VAMOS COLOCAR AS SUAS CHAVES DEPOIS
+    const firebaseConfig = {
+        apiKey: "AIzaSyDUMMY_KEY",
+        authDomain: "seu-projeto.firebaseapp.com",
+        projectId: "seu-projeto",
+        storageBucket: "seu-projeto.appspot.com",
+        messagingSenderId: "123456789",
+        appId: "1:123456789:web:abc123def"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    // FUNÇÕES DE INTERFACE
+    function abrirPainel(painel){
+        document.querySelectorAll('.painel').forEach(p => p.style.display = 'none');
+        document.getElementById('painelLogin').style.display = 'none';
+        
+        if(painel == 'login') document.getElementById('painelLogin').style.display = 'block';
+        if(painel == 'esqueceu') document.getElementById('painelEsqueceu').style.display = 'block';
+        if(painel == 'criar') document.getElementById('painelCriar').style.display = 'block';
+    }
+
+    function mostrarSenha(){
+        let input = document.getElementById('senha');
+        input.type = input.type == 'password' ? 'text' : 'password';
+    }
+
+    function show(id){
+        document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+    }
+
+    // CRIAR CONTA
+    function criarConta(){
+        let nome = document.getElementById('nomeNovo').value;
+        let email = document.getElementById('emailNovo').value;
+        let senha = document.getElementById('senhaNovo').value;
+
+        if(!nome || !email || !senha){
+            alert("Preencha todos os campos!");
+            return;
+        }
+
+        auth.createUserWithEmailAndPassword(email, senha)
+        .then((userCredential) => {
+            let user = userCredential.user;
+            // Salvar dados adicionais
+            return db.collection("usuarios").doc(user.uid).set({
+                nome: nome,
+                email: email
+            });
+        })
+        .then(() => {
+            alert("Conta criada com sucesso! Agora faça login.");
+            abrirPainel('login');
+        })
+        .catch((error) => {
+            alert("Erro: " + error.message);
+        });
+    }
+
+    // LOGAR
+    function logar(){
+        let email = document.getElementById('usuario').value;
+        let senha = document.getElementById('senha').value;
+
+        auth.signInWithEmailAndPassword(email, senha)
+        .then(() => {
+            // Esconder login e mostrar site
+            document.getElementById('telaLogin').style.display = 'none';
+            document.getElementById('conteudo-principal').style.display = 'block';
+            alert("Login bem sucedido!");
+        })
+        .catch((error) => {
+            alert("Email ou senha incorretos!");
+        });
+    }
+
+    // RECUPERAR SENHA
+    function recuperarSenha(){
+        abrirPainel('esqueceu');
+    }
+
+    function enviarRecuperacao(){
+        let email = document.getElementById('emailRec').value;
+        
+        auth.sendPasswordResetEmail(email)
+        .then(() => {
+            document.getElementById('msgEnviado').style.display = 'block';
+        })
+        .catch((error) => {
+            alert("Erro: " + error.message);
+        });
+    }
+
+    // SAIR
+    function sair(){
+        auth.signOut();
+        document.getElementById('telaLogin').style.display = 'flex';
+        document.getElementById('conteudo-principal').style.display = 'none';
+        alert("Saiu com sucesso!");
+    }
+</script>
 
 </body>
 </html>
