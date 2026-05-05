@@ -3,38 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Hospital Pediátrico do Lobito</title>
-    <!-- Chamada do Estilo -->
     <link rel="stylesheet" href="style.css">
-    
-    <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 </head>
 <body>
 
-<!-- TELA DE LOGIN -->
 <div class="login-container" id="telaLogin">
   <div class="login-box" id="painelLogin">
     <h2> 🏥<br> Hospital <br> Pediátrico do Lobito</h2>
-
     <form id="loginForm" onsubmit="event.preventDefault(); logar();">
       <div class="input-group">
         <label>Número ou Email</label>
         <input type="text" id="usuario" placeholder="Digite aqui">
       </div>
-
       <div class="input-group">
         <label>Password</label>
         <input type="password" id="senha" placeholder="Digite sua senha">
         <span class="eye-icon" id="olho" onclick="mostrarSenha()">👁️</span>
       </div>
-
       <div class="links-login">
         <a onclick="recuperarSenha()">Esqueceu senha</a>
         <a onclick="abrirPainel('criar')">Criar conta</a>
       </div>
-
       <button type="submit">Entrar</button>
     </form>
   </div>
@@ -90,7 +82,6 @@
     <br><br>
     <img src="tomas.jpg" alt="Imagem">
   </div>
-  
       <h4> <B>Horário e Funcionamento de Consultas </B> </h4> 
       de Segunda a sexta-feira, das 08:00 às 18:00; aos Sábados, das 08:00 às 12:00.
     <h4> <b> Emergências Pediátricas </b> </h4>
@@ -130,9 +121,7 @@ O hospital é atualmente liderado pela <b> <i> Dra. Florinda Miranda e Silva </i
     </tbody>
   </table>
 </div>
-
 <p>O hospital Regional Pediátrico do Lobito agradece a todos que participaram nesta campanha.</p>
-
   <div class="imagem-centralizada">
     <img src="campanha.jpg" alt="imagem">
     <img src="campanha2.jpg" alt="imagem">
@@ -141,7 +130,6 @@ O hospital é atualmente liderado pela <b> <i> Dra. Florinda Miranda e Silva </i
 
 <section id="areas">
   <p align="center"> <b> Tipo de consulta<br> de Rotina e Vigilância </b> </p>
-
   <div class="card"> Consulta de saúde infantil</div>
     <p>Acompanhamento regular do peso, altura e estado geral de saúde da criança, garantindo que ela está se desenvolvendo bem.</p>
   <div class="card"> Vacinação </div>
@@ -169,7 +157,6 @@ O hospital é atualmente liderado pela <b> <i> Dra. Florinda Miranda e Silva </i
   Telefone: +244 932 723 796 <br>
   Marcação: 957 672 765<br>
   Página Oficial do Instagram: Hospital Regional<br><br>
-
   <h3>Marcar Consulta</h3>
   <div class="card">
     <input type="text" placeholder="Nome completo" style="width:100%; margin:5px 0; padding:5px; height:30px; box-sizing: border-box;">
@@ -186,7 +173,6 @@ O hospital é atualmente liderado pela <b> <i> Dra. Florinda Miranda e Silva </i
         O Hospital Pediátrico do Lobito, localizado na Rua José Anchieta, Bairro Compão, em Lobito, Benguela, dedica-se ao atendimento infantil com excelência, cuidado humanizado e uma equipa especializada. Oferece um serviço completo que vai desde o acompanhamento regular até aos casos mais complexos, garantindo sempre a saúde e o bem-estar das crianças.
     </p>
   </div>
-
   <div class="audio-container">
     <h4>Ouça sobre nosso Hospital </h4>
     <audio controls>
@@ -200,106 +186,67 @@ O hospital é atualmente liderado pela <b> <i> Dra. Florinda Miranda e Silva </i
     <p align="center"> @Dra. Florinda Miranda </p>
   </footer>
 
-</div> <!-- FIM DO CONTEÚDO PRINCIPAL -->
+</div>
 
 <script>
-    // CONFIGURAÇÃO DO FIREBASE - VAMOS COLOCAR AS SUAS CHAVES DEPOIS
     const firebaseConfig = {
-        apiKey: "AIzaSyDUMMY_KEY",
-        authDomain: "seu-projeto.firebaseapp.com",
-        projectId: "seu-projeto",
-        storageBucket: "seu-projeto.appspot.com",
-        messagingSenderId: "123456789",
-        appId: "1:123456789:web:abc123def"
+        apiKey: "AIzaSyAsKKmX4ncmtfuxtIydOcuDCIMVmDGUAVM",
+        authDomain: "hospital-pediatrico-lobito.firebaseapp.com",
+        projectId: "hospital-pediatrico-lobito",
+        storageBucket: "hospital-pediatrico-lobito.firebasestorage.app",
+        messagingSenderId: "342789757031",
+        appId: "1:342789757031:web:00b3f2fcaff189abd69cc2"
     };
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const db = firebase.firestore();
 
-    // FUNÇÕES DE INTERFACE
     function abrirPainel(painel){
         document.querySelectorAll('.painel').forEach(p => p.style.display = 'none');
         document.getElementById('painelLogin').style.display = 'none';
-        
         if(painel == 'login') document.getElementById('painelLogin').style.display = 'block';
         if(painel == 'esqueceu') document.getElementById('painelEsqueceu').style.display = 'block';
         if(painel == 'criar') document.getElementById('painelCriar').style.display = 'block';
     }
-
     function mostrarSenha(){
         let input = document.getElementById('senha');
         input.type = input.type == 'password' ? 'text' : 'password';
     }
-
     function show(id){
         document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
         document.getElementById(id).classList.add('active');
     }
-
-    // CRIAR CONTA
     function criarConta(){
         let nome = document.getElementById('nomeNovo').value;
         let email = document.getElementById('emailNovo').value;
         let senha = document.getElementById('senhaNovo').value;
-
-        if(!nome || !email || !senha){
-            alert("Preencha todos os campos!");
-            return;
-        }
-
+        if(!nome || !email || !senha){ alert("Preencha todos os campos!"); return; }
         auth.createUserWithEmailAndPassword(email, senha)
         .then((userCredential) => {
             let user = userCredential.user;
-            // Salvar dados adicionais
-            return db.collection("usuarios").doc(user.uid).set({
-                nome: nome,
-                email: email
-            });
+            return db.collection("usuarios").doc(user.uid).set({ nome: nome, email: email });
         })
-        .then(() => {
-            alert("Conta criada com sucesso! Agora faça login.");
-            abrirPainel('login');
-        })
-        .catch((error) => {
-            alert("Erro: " + error.message);
-        });
+        .then(() => { alert("Conta criada com sucesso! Agora faça login."); abrirPainel('login'); })
+        .catch((error) => { alert("Erro: " + error.message); });
     }
-
-    // LOGAR
     function logar(){
         let email = document.getElementById('usuario').value;
         let senha = document.getElementById('senha').value;
-
         auth.signInWithEmailAndPassword(email, senha)
         .then(() => {
-            // Esconder login e mostrar site
             document.getElementById('telaLogin').style.display = 'none';
             document.getElementById('conteudo-principal').style.display = 'block';
             alert("Login bem sucedido!");
         })
-        .catch((error) => {
-            alert("Email ou senha incorretos!");
-        });
+        .catch((error) => { alert("Email ou senha incorretos!"); });
     }
-
-    // RECUPERAR SENHA
-    function recuperarSenha(){
-        abrirPainel('esqueceu');
-    }
-
+    function recuperarSenha(){ abrirPainel('esqueceu'); }
     function enviarRecuperacao(){
         let email = document.getElementById('emailRec').value;
-        
         auth.sendPasswordResetEmail(email)
-        .then(() => {
-            document.getElementById('msgEnviado').style.display = 'block';
-        })
-        .catch((error) => {
-            alert("Erro: " + error.message);
-        });
+        .then(() => { document.getElementById('msgEnviado').style.display = 'block'; })
+        .catch((error) => { alert("Erro: " + error.message); });
     }
-
-    // SAIR
     function sair(){
         auth.signOut();
         document.getElementById('telaLogin').style.display = 'flex';
